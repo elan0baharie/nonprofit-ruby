@@ -18,6 +18,14 @@ describe(Volunteers) do
     end
   end
 
+  describe('#project_id') do
+    it("will tell me the id of the entry after its saved") do
+      test_volunteer = Volunteers.new({:id => nil, :name => "Robin", :address => "123 Main St., Seattle, WA 98116", :details => "Loves Animals", :project_id => 3})
+      test_volunteer.save()
+      expect(test_volunteer.project_id()).to(eq(3))
+    end
+  end
+
   describe("#==") do
     it("is the same volunteer if it is the same info") do
       test_volunteer1 = Volunteers.new({:id => 1, :name => "Robin", :address => "123 Main St., Seattle, WA 98116", :details => "Loves Animals", :project_id => 0})
@@ -51,4 +59,15 @@ describe(Volunteers) do
       expect(Volunteers.all()).to(eq([test_volunteer2]))
     end
   end
+
+  describe(".find") do
+    it("will return a specific volunteer by its id") do
+      test_volunteer1 = Volunteers.new({:id => nil, :name => "Robin", :address => "123 Main St., Seattle, WA 98116", :details => "Loves Animals", :project_id => 0})
+      test_volunteer1.save()
+      test_volunteer2 = Volunteers.new({:id => nil, :name => "Stu", :address => "363 Rebel Ave., Seattle, WA 98115", :details => "Hates Animals", :project_id => 0})
+      test_volunteer2.save()
+      expect(Volunteers.find(test_volunteer2.id())).to(eq(test_volunteer2))
+    end
+  end
+
 end
