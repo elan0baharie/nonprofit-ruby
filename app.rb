@@ -22,6 +22,12 @@ get('/volunteers/new') do
   erb(:volunteers)
 end
 
+get("/volunteers/:id/edit") do
+  @projects = Projects.all()
+  @volunteer = Volunteers.find(params.fetch("id").to_i())
+  erb(:volunteer_edit)
+end
+
 post('/volunteers') do
   name = params.fetch('name')
   address = params.fetch('address')
@@ -32,18 +38,44 @@ post('/volunteers') do
   erb(:success)
 end
 
+patch('/volunteers/:id') do
+  name = params.fetch('name')
+  address = params.fetch('address')
+  details = params.fetch('details')
+  project_id = params.fetch('projects_list').to_i()
+  @projects = Projects.all()
+  @volunteer = Volunteers.find(params.fetch("id").to_i())
+  @volunteer.update({:name => name, :address => address, :details => details, :project_id => project_id})
+  erb(:success)
+end
+
+delete("/volunteers/:id") do
+  @volunteer = Volunteers.find(params.fetch("id").to_i())
+  @volunteer.delete()
+  erb(:success)
+end
+
 get('/success') do
   erb(:success)
 end
 
 get('/projects') do
+  @volunteers = Volunteers.all()
   @projects = Projects.all()
   erb(:projects)
 end
 
 get('/projects/new') do
+  @volunteers = Volunteers.all()
   @projects = Projects.all()
   erb(:projects)
+end
+
+get("/projects/:id/edit") do
+  @volunteers = Volunteers.all()
+  @projects = Projects.all()
+  @project = Projects.find(params.fetch("id").to_i())
+  erb(:projects_edit)
 end
 
 post('/projects') do
@@ -55,13 +87,18 @@ post('/projects') do
   erb(:success)
 end
 
-# post('/first_form') do
-#   @first_name = params.fetch('first-name')
-#   @last_name = params.fetch('last-name')
-#   @job = params.fetch('job')
-#   @company = params.fetch('company')
-#   @contact = Contact.new({:first_name=> @first_name, :last_name=>@last_name, :job_title=>@job, :company=>@company})
-#   @contact.save()
-#   @contacts = Contact.all()
-#   erb(:success)
-# end
+patch('/projects/:id') do
+  name = params.fetch('name')
+  location = params.fetch('location')
+  details = params.fetch('details')
+  @project = Projects.find(params.fetch("id").to_i())
+  @project.update({:name => name, :location => location, :details => details})
+  erb(:success)
+end
+
+
+delete('/projects/:id') do
+  @project = Projects.find(params.fetch("id").to_i())
+  @project.delete()
+  erb(:success)
+end

@@ -33,10 +33,21 @@
     <ul>
       <li><%= project.location() %></li>
       <li><%= project.details() %></li>
+      <ul>
+        <% if project.volunteers().any? %>
+          <h5>Associated Volunteers</h5>
+          <% project.volunteers().each() do |vol|%>
+            <li><%= vol.name() %></li>
+          <% end %>
+        <% end %>
+      </ul>
     </ul>
     <% end %>
   </ul>
   </div>
+  <p>
+    <a href="/">Back to Home</a>
+  </p>
 <% else %>
   <div class="well">
     <h2>You have yet add a project.</h2>

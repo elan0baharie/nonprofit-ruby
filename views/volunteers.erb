@@ -32,7 +32,7 @@
 
   <div class="well">
     <h2>All volunters:</h2>
-    <p>Click on a volunteer to edit</p>
+    <p>Click on a volunteer to edit info or reassign to an existing project</p>
     <ul>
       <% @volunteers.each() do |volunteer| %>
       <li><a href="/volunteers/<%= volunteer.id() %>/edit"><%= volunteer.name() %></a></li>

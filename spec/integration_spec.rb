@@ -5,16 +5,16 @@ set(:show_exceptions, false)
 
 
 
-describe("form behavior", {:type => :feature}) do
-  it("accept a new contact") do
+describe("add a project to the projects page", {:type => :feature}) do
+  it("accept a new project") do
     visit('/')
-    click_on('See Contact List/ Add New Contacts')
-    fill_in('first-name', :with => "Bob")
-    fill_in('last-name', :with => "Ross")
-    fill_in('job', :with => "Painter")
-    fill_in('company', :with => "PBS")
-    click_button('Click')
-    click_on('Back to contacts list')
-    expect(page).to have_content("Bob")
+    click_on('Add New Projects')
+    fill_in('name', :with => "Shelter for Animals")
+    fill_in('location', :with => "234 Ross St. , Seattle, WA 98116")
+    fill_in('details', :with => "Home to animals")
+    click_button('Submit')
+    click_on('Back to Home')
+    click_on('See Project List')
+    expect(page).to have_content("Shelter for Animals")
   end
 end

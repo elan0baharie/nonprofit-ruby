@@ -32,12 +32,30 @@ describe(Projects) do
     end
   end
 
-  describe("#update_main") do
+  describe("#update") do
     it("lets you update info in the database") do
       test_project1 = Projects.new({:id => nil, :name => "Fair St. Shelter", :location => "4567 West Ave., Seattle, WA 98416", :details => "Home to many animals"})
       test_project1.save()
-      test_project1.update_main({:name => "Fair St. Animal Shelter", :location => "4567 West Ave., Seattle, WA 98416", :details => "Home to many animals"})
+      test_project1.update({:name => "Fair St. Animal Shelter", :location => "4567 West Ave., Seattle, WA 98416", :details => "Home to many animals"})
       expect(test_project1.name()).to(eq("Fair St. Animal Shelter"))
+    end
+  end
+
+  describe("#update") do
+    it("lets you update info in the database") do
+      test_project1 = Projects.new({:id => nil, :name => "Fair St. Shelter", :location => "4567 West Ave., Seattle, WA 98416", :details => "Home to many animals"})
+      test_project1.save()
+      test_project1.update({:name => "Fair St. Animal Shelter", :location => "456 Treattle, WA 98416", :details => "Home to many animals"})
+      expect(test_project1.location()).to(eq("456 Treattle, WA 98416"))
+    end
+  end
+
+  describe("#update") do
+    it("lets you update info in the database") do
+      test_project4 = Projects.new({:id => nil, :name => "Brand New Place", :location => "45 Rest Ave., Seattle, WA 98616", :details => "Home to many animals"})
+      test_project4.save()
+      test_project4.update({:name => "Fair St. Animal Shelter", :location => "456 Treattle, WA 98416", :details => "Home to new stuff"})
+      expect(test_project4.details()).to(eq("Home to new stuff"))
     end
   end
 

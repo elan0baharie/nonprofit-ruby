@@ -40,13 +40,14 @@ class Projects
     found_project
   end
 
-  def update_main (attribute)
+  def update(attribute)
     @name = attribute.fetch(:name)
     @location = attribute.fetch(:location)
     @details = attribute.fetch(:details)
     @id = self.id()
     DB.exec("UPDATE projects SET name = '#{@name}', location = '#{@location}', details = '#{@details}' WHERE id = #{@id};")
   end
+
 
   def delete
     DB.exec("DELETE FROM projects WHERE id= #{self.id()};")
