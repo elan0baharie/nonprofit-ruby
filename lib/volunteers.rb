@@ -2,6 +2,7 @@ class Volunteers
   attr_accessor(:id, :name, :address, :details)
 
   define_method(:initialize) do |attribute|
+    @id = attribute.fetch(:id)
     @name = attribute.fetch(:name)
     @address = attribute.fetch(:address)
     @details = attribute.fetch(:details)
@@ -11,10 +12,11 @@ class Volunteers
     all_volunteers = DB.exec("SELECT * FROM volunteers;")
     volunteers = []
     all_volunteers.each() do |volunteer|
-      name = attribute.fetch('name')
-      address = attribute.fetch('address')
-      details = attribute.fetch('details')
-      volunteers.push(Volunteers.new({:name => name, :address => address, :details => details}))
+      id = volunteer.fetch('id').to_i()
+      name = volunteer.fetch('name')
+      address = volunteer.fetch('address')
+      details = volunteer.fetch('details')
+      volunteers.push(Volunteers.new({:id => id, :name => name, :address => address, :details => details}))
     end
     volunteers
   end
@@ -24,7 +26,7 @@ class Volunteers
   end
 
   def save
-    DB.exec("INSERT INTO volunteers (name) VALUES ('#{@name}', '#{@address}', '#{@details}') RETURNING id;")
+    result = DB.exec("INSERT INTO volunteers (name, address, details) VALUES ('#{@name}', '#{@address}', '#{@details}') RETURNING id;")
     @id = result.first().fetch('id').to_i()
   end
 
