@@ -1,12 +1,9 @@
 require('rspec')
 require('pry')
-require('class1')
-require('class2')
+require('volunteers')
+require('projects')
 
-describe(Class1) do
-  before() do
-    Class1.clear()
-  end
+describe(Volunteers) do
 
   describe('') do
     it("") do
